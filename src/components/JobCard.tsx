@@ -4,7 +4,7 @@ import { jdType } from "@/hooks/useFetch";
 import { useMemo } from "react";
 const JobCard =({job}: {job: jdType})=> useMemo(() =>{
   return (
-        <div className="w-1/3 min-w-64 hover:scale-110 rounded-2xl block shadow-black shadow-sm p-5 max-w-96">
+        <div className="w-1/3 min-w-52 hover:scale-105 rounded-2xl block shadow-black shadow-sm p-5 max-w-96">
             <div className="rounded-full flex items-center border-solid px-2 shadow-sm shadow-black w-fit">
                 <Image className="p-1" src="/hourglass.png" alt="&#10710;" width="20" height="20" layout="fixed"/>
                 <p className="text-sm text-slate-600">Posted 10 days ago</p>
@@ -41,23 +41,23 @@ const JobCard =({job}: {job: jdType})=> useMemo(() =>{
                     <Link className="items-center bottom-0 absolute text-center text-sky-600 w-full pointer-events-auto" href={job.jdLink}>View More</Link>
                 </div>
             </div>
-            {(job.minExp !== null)?(<div className="my-2">
+            <div className="my-2">
                 <div className="font-light">
                     Minimum Experience
                 </div>
                 <div>
-                    {job.minExp} year(s)
+                    {(job.minExp !== null)?job.minExp + " year(s)":"N/A"} 
                 </div>
-            </div>):<></>}
-            {(job.maxExp !== null)?(<div className="my-2">
+            </div>
+            <div className="my-2">
                 <div className="font-light">
                     Maximum Experience
                 </div>
                 <div>
-                    {job.minExp} year(s)
+                    {(job.maxExp !== null)?job.maxExp + " year(s)":"N/A"} 
                 </div>
-            </div>):<></>}
-            <button className="bg-green-400 text-center mr-2 p-1 rounded-lg w-full">⚡Easy Apply</button>
+            </div>
+            <button className="bg-green-400 text-center mr-2 p-1 rounded-lg w-full mt-auto">⚡Easy Apply</button>
 
         </div>
     );
