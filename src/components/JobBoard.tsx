@@ -31,7 +31,6 @@ const JobBoard = () =>{
     });
     const handleChange = (e: React.ChangeEvent<HTMLInputElement| HTMLSelectElement>) => {
         const { name, value } = e.target;
-        console.log(name,value)
         setFilters(prevFilters => ({ ...prevFilters, [name]: value }));
     };
     useEffect(()=>{
@@ -40,33 +39,15 @@ const JobBoard = () =>{
             setOffset(offset+limit);
         });
     },[]);
-    const fetchJobsIfNeeded = ():Promise<any> => {
-        if (window.innerHeight + document.documentElement.scrollTop + 20 > document.documentElement.offsetHeight) {
-            console.log('try');
-            return fetch().then(data => {
-                console.log(data);
-                return fetchJobsIfNeeded(); 
-            }).catch(error => {
-                console.error("Failed to fetch jobs:", error);
-            }).finally(() => {
-            });
-        } else {
-            return Promise.resolve();
-        }
-    }
     useEffect(()=>{
-        console.log("filters.isRemote");
         const handleScroll = async () => {
             if (window.innerHeight + document.documentElement.scrollTop + 20 <= document.documentElement.offsetHeight || load ) return;
             setLoad(true);
             const data = await fetch();
-            setJobs(jobs => jobs.concat(data.jdList));
-            setOffset(offset => offset + limit);
+            setJobs(jobs.concat(data.jdList));
+            setOffset(offset+limit);
             setLoad(false);
         };
-        console.log('jobs:',jobs);
-        console.log(offset);
-        console.log(handleScroll);
         window.addEventListener("scroll",handleScroll);
         return () => {
             window.removeEventListener("scroll",handleScroll);
